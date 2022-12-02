@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.e6c13ad2.css",
-    "main.js": "/static/js/main.c5f123fa.js",
-    "index.html": "/index.html",
-    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
-    "main.c5f123fa.js.map": "/static/js/main.c5f123fa.js.map"
+    "main.css": "/Unis_chat/static/css/main.e6c13ad2.css",
+    "main.js": "/Unis_chat/static/js/main.94d7c702.js",
+    "index.html": "/Unis_chat/index.html",
+    "main.e6c13ad2.css.map": "/Unis_chat/static/css/main.e6c13ad2.css.map",
+    "main.94d7c702.js.map": "/Unis_chat/static/js/main.94d7c702.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.c5f123fa.js"
+    "static/js/main.94d7c702.js"
   ]
 }
