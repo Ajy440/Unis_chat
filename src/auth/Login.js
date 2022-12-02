@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { firebaseApp } from "../Firebase/config";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
   const auth = getAuth(firebaseApp);
 
   const login = () => {
-    signInWithEmailAndPassword(auth, "ajy9582@gmail.com", "1234567890");
+    signInWithEmailAndPassword(auth, "ajy9582@gmail.com", "12345678");
   };
   const logout = () => {
     signOut(auth);
@@ -26,6 +27,7 @@ const Login = () => {
   }
   return (
     <>
+      <Navbar />
       <button onClick={login}>Log in</button>{" "}
       <button onClick={logout}>Log out</button>
     </>

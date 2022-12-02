@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { getAuth } from "firebase/auth";
+import React, { useState, useEffect } from "react";
+import { getAuth, updateProfile } from "firebase/auth";
 import { firebaseApp } from "../Firebase/config";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import Navbar from "../components/Navbar";
 
 const Signup = () => {
   const auth = getAuth(firebaseApp);
@@ -13,6 +14,16 @@ const Signup = () => {
 
   if (user) {
     console.log(user);
+    updateProfile(auth.currentUser, {
+      displayName: "Jane Q. User",
+      photoURL: "https://example.com/jane-q-user/profile.jpg",
+    })
+      .then(() => {
+        console.log("pu");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   if (loading) {
@@ -25,6 +36,7 @@ const Signup = () => {
 
   return (
     <div className="App">
+      <Navbar />
       <input
         type="email"
         value={email}
