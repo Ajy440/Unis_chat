@@ -15,6 +15,12 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { getAuth, signOut } from "firebase/auth";
 import { firebaseApp } from "../Firebase/config";
 import { useNavigate } from "react-router-dom";
+import Chip from "@mui/joy/Chip";
+import SettingsIcon from "@mui/icons-material/Settings";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import DuoIcon from "@mui/icons-material/Duo";
+import { useSelector, useDispatch } from "react-redux";
+import { openNav } from "../store/slice/authSlice";
 
 const pages = [
   { name: "Login", link: "/login", authed: false },
@@ -29,8 +35,14 @@ function Navbar() {
 
   const navigate = useNavigate();
 
+  const navState = useSelector((state) => state.nav.value);
+  //console.log(navState);
+
+  const dispatch = useDispatch();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [upd, forceUpdate] = React.useState(true);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -48,11 +60,22 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar
+      position="sticky"
+      style={{ backgroundColor: "white" }}
+      elevation="0"
+    >
+      <Container maxWidth="xl" style={{ height: "8vh" }}>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <DuoIcon
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              color: "#5e35b1",
+            }}
+          />
           <Typography
+            onClick={() => navigate("/Unis_chat")}
             variant="h6"
             noWrap
             component="a"
@@ -60,16 +83,33 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              //fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "black",
               textDecoration: "none",
             }}
           >
-            LOGO
+            UNIS
           </Typography>
 
+          <Box
+            sx={{
+              mr: 2,
+              ml: 4,
+              p: 0.5,
+              cursor: "pointer",
+              ...(navState && { display: "none" }),
+            }}
+            style={{ backgroundColor: "#5e35b1", borderRadius: "8px" }}
+          >
+            <MenuIcon
+              color="red"
+              aria-label="open drawer"
+              onClick={() => dispatch(openNav())}
+              style={{ height: "2vh" }}
+            ></MenuIcon>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -130,42 +170,83 @@ function Navbar() {
               <Button
                 key={page.name}
                 onClick={() => navigate(page.link)}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  backgroundColor: "#5e35b1",
+                  "&:hover": {
+                    backgroundColor: "#5e35b1",
+                  },
+                  borderRadius: "15px",
+                  ml: 1,
+                  ...(isAuthed && !page.authed && { display: "none" }),
+                }}
               >
                 {page.name}
               </Button>
             ))}
           </Box>
-
+          <Box
+            sx={{ mr: 2, p: 1 }}
+            style={{ backgroundColor: "#5e35b1", borderRadius: "15px" }}
+          >
+            <NotificationsNoneIcon></NotificationsNoneIcon>{" "}
+          </Box>
           {isAuthed && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src={auth.currentUser?.photoURL} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+              <div
+                style={{
+                  backgroundColor: "#1e88e5",
+                  padding: "0.5vw",
+                  borderRadius: "18px",
                 }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={() => signOut(auth)}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={auth.currentUser?.photoURL}
+                    sx={{ width: 32, height: 32 }}
+                  />
+                </IconButton>
+
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem
+                      key={setting}
+                      onClick={async () => {
+                        await signOut(auth);
+                        await forceUpdate(!upd);
+                        navigate("/Unis_chat");
+                      }}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Chip>
+                      <SettingsIcon style={{ color: "white" }} />{" "}
+                    </Chip>
+                  </IconButton>
+                </Tooltip>
+              </div>
             </Box>
           )}
         </Toolbar>

@@ -1,26 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: 0,
+  value: false,
 };
 
-export const counterSlice = createSlice({
+export const navSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    openNav: (state) => {
+      state.value = true;
     },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    closeNav: (state) => {
+      state.value = false;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { openNav, closeNav } = navSlice.actions;
 
-export default counterSlice.reducer;
+export default navSlice.reducer;

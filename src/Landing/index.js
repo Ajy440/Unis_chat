@@ -1,32 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "../store/slice/authSlice";
 import Navbar from "../components/Navbar";
+import { Box } from "@mui/material";
 
 const Index = () => {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
-
   return (
     <div>
       <Navbar />
-      Count is {count}
-      <div>
-        <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
-          Increment
-        </button>
-        <span>{count}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
-          Decrement
-        </button>
-      </div>
+      <Box sx={{ p: 2 }} style={{ height: "89vh" }}>
+        <Box
+          style={{
+            backgroundColor: "#e3f2fd",
+            borderRadius: "16px",
+            height: "89vh",
+          }}
+          sx={{ p: 2 }}
+        ></Box>
+      </Box>
     </div>
   );
 };

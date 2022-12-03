@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./slice/authSlice";
+import navReducer from "./slice/authSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    nav: navReducer,
   },
 });
