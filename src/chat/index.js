@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import ChatMain from "./ChatMain";
 import { getAuth } from "firebase/auth";
 import { firebaseApp } from "../Firebase/config";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +7,14 @@ import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiAppBar from "@mui/material/AppBar";
 import { useSelector, useDispatch } from "react-redux";
 import { closeNav, openNav } from "../store/slice/authSlice";
 import SideDrawer from "./SideDrawer";
+import Grid from "@mui/material/Grid";
+import UserProfileCart from "./UserProfileCart";
+import ChatHeader from "./ChatHeader";
+import ChatMain from "./ChatMain";
+import ChatFooter from "./ChatFooter";
 
 const drawerWidth = 240;
 
@@ -34,27 +37,11 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
 const Index = () => {
   const auth = getAuth(firebaseApp);
   const isAuthed = auth.currentUser !== null;
   const navigate = useNavigate();
+  const userState = useSelector((state) => state.chat.selectedUserData);
 
   const [open, setOpen] = React.useState(true);
   const navState = useSelector((state) => state.nav.value);
@@ -118,7 +105,18 @@ const Index = () => {
               }}
               sx={{ p: 2 }}
             >
-              <ChatMain />
+              {userState?.email !== null && (
+                <Grid container spacing={2}>
+                  <Grid item xs={9}>
+                    <ChatHeader />
+                    <ChatMain />
+                    <ChatFooter />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <UserProfileCart />
+                  </Grid>
+                </Grid>
+              )}
             </Box>
           </Box>
         </Main>

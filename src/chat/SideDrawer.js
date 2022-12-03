@@ -8,11 +8,12 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
 import AddFriend from "./AddFriend";
-import { doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { firebaseApp } from "../Firebase/config";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../store/slice/chatSlice";
 
 const db = getFirestore(firebaseApp);
 
@@ -24,9 +25,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const SideDrawer = (props) => {
   const auth = getAuth(firebaseApp);
-  const [getcontacts, updateContacts] = useState({});
+  const [getcontacts, updateContacts] = useState([]);
 
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   const [value, loading, error] = useCollection(
     collection(
@@ -67,8 +69,14 @@ const SideDrawer = (props) => {
   renderedContacts = getcontacts.map((contact) => {
     return (
       <Card
-        sx={{ display: "flex", p: 1, backgroundColor: "#ede7f6" }}
+        sx={{
+          display: "flex",
+          p: 1,
+          backgroundColor: "#ede7f6",
+          cursor: "pointer",
+        }}
         key={contact.email}
+        onClick={() => dispatch(setUserData(contact))}
       >
         <Grid container spacing={2}>
           <Grid item xs={2}>
