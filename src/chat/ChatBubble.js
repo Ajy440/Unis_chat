@@ -32,7 +32,8 @@ const ChatBubble = (props) => {
             <Paper
               sx={{
                 float: "right",
-                backgroundColor: "#F8F8F8",
+                backgroundColor: "#1e88e5",
+                color: "white",
                 mt: 2,
                 ml: 6,
                 mb: 1,
