@@ -15,6 +15,8 @@ import UserProfileCart from "./UserProfileCart";
 import ChatHeader from "./ChatHeader";
 import ChatMain from "./ChatMain";
 import ChatFooter from "./ChatFooter";
+import { Paper } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 const drawerWidth = 240;
 
@@ -116,6 +118,30 @@ const Index = () => {
                     <UserProfileCart />
                   </Grid>
                 </Grid>
+              )}
+              {userState?.email === null && (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{
+                    backgroundColor: "transparent",
+                    display: "flex",
+                    flexDirection: "center",
+                  }}
+                >
+                  <Typography
+                    component="div"
+                    variant="h6"
+                    sx={{
+                      display: "flex",
+                      mt: 2,
+                    }}
+                  >
+                    Click on any conversation or top on Add Friend to get
+                    started.
+                  </Typography>
+                </Box>
               )}
             </Box>
           </Box>
