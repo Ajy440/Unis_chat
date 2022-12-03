@@ -22,6 +22,8 @@ const ChatBubble = (props) => {
                 mr: 6,
                 mb: 1,
                 borderRadius: "16px",
+                maxWidth: "40vw",
+                wordWrap: "break-word",
               }}
             >
               <Typography sx={{ p: 1.5 }}>{props.data.body}</Typography>
@@ -35,6 +37,8 @@ const ChatBubble = (props) => {
                 ml: 6,
                 mb: 1,
                 borderRadius: "16px",
+                maxWidth: "40vw",
+                wordWrap: "break-word",
               }}
             >
               <Typography sx={{ p: 1.5, textAlign: "right" }}>

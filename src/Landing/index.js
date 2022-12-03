@@ -34,6 +34,7 @@ const Index = () => {
                   height: "90vh",
                   borderRadius: "16px",
                   backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
                   backgroundImage: `url(${"https://img.freepik.com/free-vector/cellphone-concept-illustration_114360-6398.jpg?w=2000"})`,
                 }}
               ></Box>
