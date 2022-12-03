@@ -4,7 +4,6 @@ import ChatMain from "./ChatMain";
 import { getAuth } from "firebase/auth";
 import { firebaseApp } from "../Firebase/config";
 import { useNavigate } from "react-router-dom";
-
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
