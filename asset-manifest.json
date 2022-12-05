@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Unis_chat/static/css/main.bc09eebb.css",
-    "main.js": "/Unis_chat/static/js/main.615d1d6d.js",
+    "main.js": "/Unis_chat/static/js/main.bcd7e0b3.js",
     "static/media/note.mp3": "/Unis_chat/static/media/note.dbf053c50cd065d2ec0c.mp3",
     "static/media/roboto-all-500-normal.woff": "/Unis_chat/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/Unis_chat/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
@@ -37,10 +37,10 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/Unis_chat/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/Unis_chat/index.html",
     "main.bc09eebb.css.map": "/Unis_chat/static/css/main.bc09eebb.css.map",
-    "main.615d1d6d.js.map": "/Unis_chat/static/js/main.615d1d6d.js.map"
+    "main.bcd7e0b3.js.map": "/Unis_chat/static/js/main.bcd7e0b3.js.map"
   },
   "entrypoints": [
     "static/css/main.bc09eebb.css",
-    "static/js/main.615d1d6d.js"
+    "static/js/main.bcd7e0b3.js"
   ]
 }
