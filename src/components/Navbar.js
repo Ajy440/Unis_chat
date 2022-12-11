@@ -21,6 +21,10 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import DuoIcon from "@mui/icons-material/Duo";
 import { useSelector, useDispatch } from "react-redux";
 import { openNav } from "../store/slice/authSlice";
+import { getFirestore, collection } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
+
+const db = getFirestore(firebaseApp);
 
 const pages = [
   { name: "Login", link: "/login", authed: false },
@@ -58,6 +62,28 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const [uname, updateUname] = React.useState("");
+
+  const [value, loading, error] = useCollection(
+    collection(getFirestore(firebaseApp), "users/global/data"),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+
+  React.useEffect(() => {
+    if (value) {
+      const users = [];
+      value.docs.map((doc) => {
+        if (doc.data().email === auth.currentUser?.email) {
+          updateUname(
+            doc.data()?.name.substring(0, doc.data()?.name.indexOf(" "))
+          );
+        }
+      });
+    }
+  }, [value]);
 
   return (
     <AppBar
@@ -226,6 +252,9 @@ function Navbar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
+                  <MenuItem key="uname">
+                    <Typography textAlign="center">Hi, {uname}</Typography>
+                  </MenuItem>
                   {settings.map((setting) => (
                     <MenuItem
                       key={setting}
